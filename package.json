@@ -20,5 +20,8 @@
     "nuxt-mongoose": "^1.0.6",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.1"
   }
 }

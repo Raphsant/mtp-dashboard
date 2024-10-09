@@ -75,7 +75,7 @@ watch(dashData, (newData) => {
             </UDashboardCard>
           </div>
           <div class="space-y-6">
-            <UDashboardCard icon="i-heroicons-user">
+            <UDashboardCard name="i-heroicons-user">
               <template #title>
                 Current Clients
               </template>

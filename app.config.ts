@@ -1,7 +1,7 @@
 export default defineAppConfig({
   ui: {
-    primary: "emerald",
-    gray: "slate",
+    primary: "red",
+    gray: "stone",
     tooltip: {
       background: "!bg-background",
     },

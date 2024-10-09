@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   extends: ['@nuxt/ui-pro'],
-  modules: ['nuxt-mongoose', '@nuxt/ui'],
+  modules: ['@nuxt/ui','nuxt-mongoose', ],
   mongoose: {
     uri: process.env.MONGODB_URI,
     options:

@@ -2,7 +2,7 @@ import {aptsSchema} from "~/server/models/apts.schema";
 
 export default defineEventHandler(async (event) => {
     try {
-        return await aptsSchema.find().populate('userId')
+        return await aptsSchema.find().populate('carId')
 
     } catch (error: any) {
         return {

@@ -21,7 +21,13 @@ watch(dashData, (newData) => {
 
 <template>
   <UDashboardPage>
+
     <UDashboardPanel grow>
+      <UDashboardNavbar>
+        <template #title>
+          <span class="text-primary">Home</span>
+        </template>
+      </UDashboardNavbar>
       <ULandingHero>
         <template #title>
           <span class="text-primary">Mobile Tire Pro</span>

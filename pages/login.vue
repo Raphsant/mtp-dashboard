@@ -15,7 +15,7 @@ const sendCredentialsToBackend = async (credentials: any) => {
     }
   })
   if ((await user)) {
-    console.log(user)
+    return navigateTo('/')
   }
 }
 
@@ -29,16 +29,6 @@ const fields = [{
   label: 'Password',
   type: 'password',
   placeholder: 'Enter your password'
-}]
-
-
-const providers = [{
-  label: 'Continue with Google',
-  icon: 'i-simple-icons-google',
-  color: 'white' as const,
-  click: () => {
-
-  }
 }]
 </script>
 

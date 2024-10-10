@@ -112,7 +112,7 @@ const groups = [{
         <template #footer>
           <div class="text-xs font-bold"><span class="text-red-600">The</span><span class="text-orange-600">Web</span><span class="text-orange-400">Agency</span></div>
           <!-- ~/components/UserDropdown.vue -->
-          <UColorModeToggle on-icon="i-heroicons-moon" off-icon="i-heroicons-sun" />
+          <UColorModeToggle />
 
         </template>
       </UDashboardSidebar>

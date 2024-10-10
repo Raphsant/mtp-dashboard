@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import moment from "moment-timezone";
-
+definePageMeta({
+  middleware: "auth"
+})
 const {status, data} = await useLazyFetch('/api/apts/all', {server: false})
 watch(data, (newData) => {
 

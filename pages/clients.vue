@@ -1,7 +1,9 @@
 <script setup lang="ts">
 
 import moment from "moment-timezone";
-
+definePageMeta({
+  middleware: "auth"
+})
 onBeforeMount(async () => {
   const {data} = await useLazyFetch('/api/user/list')
 

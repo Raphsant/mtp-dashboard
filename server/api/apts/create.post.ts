@@ -20,7 +20,7 @@
 //         const {carId, service, appointmentDate, address, phone} = await readBody(event);
 //         const email = await getAuth(event)
 //         const user = await userSchema.findOne({email}).select('-password')
-//         const car = await carSchema.findById(carId)
+//         const car = await caarSchema.findById(carId)
 //         const apt = new aptsSchema({carId, service, appointmentDate, address, phone, userId: user?._id})
 //         await apt.save()
 //         await userSchema.findByIdAndUpdate(user?._id, {$push: {apts: apt._id}})
@@ -73,7 +73,7 @@
 //         const {carId, service, appointmentDate, address, phone} = await readBody(event);
 //         const email = await getAuth(event)
 //         const user = await userSchema.findOne({email}).select('-password')
-//         const car = await carSchema.findById(carId)
+//         const car = await caarSchema.findById(carId)
 //         const apt = new aptsSchema({carId, service, appointmentDate, address, phone, userId: user?._id})
 //         await apt.save()
 //         await userSchema.findByIdAndUpdate(user?._id, {$push: {apts: apt._id}})

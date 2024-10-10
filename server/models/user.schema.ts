@@ -1,6 +1,4 @@
 import {defineMongooseModel} from "#nuxt/mongoose";
-import {carSchema} from "~/server/models/car.schema";
-
 
 export const userSchema = defineMongooseModel({
     name: 'User',
@@ -18,7 +16,7 @@ export const userSchema = defineMongooseModel({
         },
         cars: [{
             type: 'ObjectId',
-            ref: carSchema
+            ref: 'Car'
         }],
         apts: [{
             type: 'ObjectId',

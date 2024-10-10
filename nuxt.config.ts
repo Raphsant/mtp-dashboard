@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ['@nuxt/ui-pro'],
-  modules: ['@nuxt/ui','nuxt-mongoose', ],
+  modules: ['@nuxt/ui','nuxt-mongoose','./modules/auth.module','nuxt-vue3-google-signin'],
+  googleSignIn: {
+    clientId: process.env.NUXT_PUBLIC_CLIENT_ID,
+  },
   mongoose: {
     uri: process.env.MONGODB_URI,
     options:
@@ -15,6 +18,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     accessToken: '',
     pass: '',
+    public: {
+      clientId: ''
+    }
   },
   ui: {
     notifications: {

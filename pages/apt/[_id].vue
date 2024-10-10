@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import moment from "moment-timezone";
 
+definePageMeta({
+  middleware: "auth"
+})
 const route = useRoute();
 const toast = useToast();
 const data = ref('')
@@ -30,7 +33,7 @@ const modifyStatus = async (status) => {
       <UDashboardNavbar title="Appointment">
 
       </UDashboardNavbar>
-      <UDashboardPanelContent >
+      <UDashboardPanelContent>
         <div class="flex flex-col gap-6">
           <div class="grid lg:grid-cols-2 gap-4 mt-4">
             <UDashboardCard>

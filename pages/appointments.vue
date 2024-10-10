@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from "moment-timezone";
 
-const {status, data} = await useLazyFetch('/api/apts/all')
+// const {status, data} = await useLazyFetch('/api/apts/all')
 watch(data, (newData) => {
 
 })

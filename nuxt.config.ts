@@ -2,16 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ['@nuxt/ui-pro'],
-  modules: ['@nuxt/ui','nuxt-mongoose', ],
-  mongoose: {
-    uri: process.env.MONGODB_URI,
-    options:
-        {}
-    ,
-    modelsDir: 'models',
-    devtools:
-        true,
-  },
+  modules: ['@nuxt/ui', ],
   runtimeConfig: {
     accessToken: '',
     pass: '',

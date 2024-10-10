@@ -113,59 +113,7 @@ const carList = [
 </script>
 
 <template>
-  <UDashboardPage>
-    <UDashboardPanel grow>
-      <UDashboardNavbar title="Appointments">
-        <template #right>
-          <UInput
-              ref="inputBox"
-              name="queryInput"
-              v-model="filterText"
-              icon="i-heroicons-funnel"
-              autocomplete="off"
-              placeholder="Filter users..."
-              class="hidden lg:block"
-              @keydown.esc="$event.target.blur()"
-          >
-            <template #trailing>
-              <UKbd>{{metaSymbol}}</UKbd>
-              <UKbd value="S"/>
-            </template>
-          </UInput>
-        </template>
-      </UDashboardNavbar>
-      <UTable :columns="columns" :rows="filteredUsers">
-        <template #name-data="{row}">
-          <div class="justify-start items-center gap-2 flex">
-            <UAvatar :src="row?.picture" :alt="row.name" size="lg"/>
-            <span>{{ row.name }}</span></div>
-        </template>
-        <template #actions-data="{row}">
-          <UDropdown :items="items(row)">
-            <UButton color="primary" variant="ghost" icon="i-heroicons-pencil-square-20-solid"/>
-          </UDropdown>
-        </template>
-        <template #cars-data="{row}">
-          <UDropdown v-if="row.cars.length" mode="hover" :items="carList">
-            <template #car="{item}">
-              <div class="flex flex-col justify-center items-start gap-2">
-                <div v-for="car in row.cars">
-                  {{ car.year }} {{ car.make }} {{ car.model }}
-                </div>
-              </div>
-            </template>
-            <UButton color="primary" variant="link" :label="`${row.cars.length} ${row.cars.length == 1 ? 'Car' : 'Cars'}`"/>
-          </UDropdown>
-          <span class="text-primary" v-if="!row.cars.length">
-            No cars
-          </span>
-        </template>
-        <template #apts-data="{row}">
-          <span class="text-primary">{{ row.apts.length }} {{row.apts.length == 1 ? 'Appointment' : 'Appointments' }}</span>
-        </template>
-      </UTable>
-    </UDashboardPanel>
-  </UDashboardPage>
+
 </template>
 
 <style scoped>

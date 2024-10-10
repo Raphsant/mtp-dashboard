@@ -77,52 +77,5 @@ const groups = [{
 </script>
 
 <template>
-  <UDashboardLayout>
-    <UDashboardPanel
-        :width="250"
-        :resizable="{ min: 200, max: 300 }"
-        collapsible
-    >
-      <UDashboardNavbar
-          class="!border-transparent"
-          :ui="{ left: 'flex-1' }"
-      >
-        <template #left>
-          <img src="~/assets/img/mtp.png" alt="mtp logo"/>
-
-        </template>
-      </UDashboardNavbar>
-
-      <UDashboardSidebar>
-        <template #header>
-          <UDashboardSearchButton/>
-        </template>
-
-        <UDashboardSidebarLinks :links="links"/>
-
-        <UDivider/>
-
-
-        <div class="flex-1"/>
-
-        <UDashboardSidebarLinks :links="footerLinks"/>
-
-        <UDivider class="sticky bottom-0"/>
-
-        <template #footer>
-          <div class="text-xs font-bold"><span class="text-red-600">The</span><span class="text-orange-600">Web</span><span class="text-orange-400">Agency</span></div>
-          <!-- ~/components/UserDropdown.vue -->
-          <UColorModeToggle on-icon="i-heroicons-moon" off-icon="i-heroicons-sun" />
-
-        </template>
-      </UDashboardSidebar>
-    </UDashboardPanel>
-
-    <slot/>
-
-
-    <ClientOnly>
-      <LazyUDashboardSearch :groups="groups"/>
-    </ClientOnly>
-  </UDashboardLayout>
+<slot/>
 </template>

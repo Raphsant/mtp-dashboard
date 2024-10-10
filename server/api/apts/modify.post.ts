@@ -22,9 +22,9 @@ export default defineEventHandler(async (event) => {
         if (await newApt) {
             const clientmail = await transporter.sendMail({
                 from: '', // sender address
-                to: 'raphy@raphsant.com', // list of receivers
-                subject: "Mobile Tire Pro - Appointment confirmed", // Subject line
-                text: `Your appointment has been confirmed \n ${appointment.service} \n ${appointment.address} \n ${appointment.car?.year} ${appointment.car?.make} ${appointment.car?.model} \n ${appointment.phone} `, // plain text body
+                to: email, // list of receivers
+                subject: `Mobile Tire Pro - Appointment set to ${status}`, // Subject line
+                text: `Your appointment has been set to: ${status} `, // plain text body
                 //html: "<b>Your appointment has been booked.</b>", // html body
             });
             return {

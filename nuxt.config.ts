@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   extends: ['@nuxt/ui-pro'],
   modules: ['@nuxt/ui','nuxt-mongoose','./modules/auth.module','nuxt-vue3-google-signin'],
   googleSignIn: {
-    clientId: process.env.NUXT_PUBLIC_CLIENT_ID,
+    clientId: '44678613954-1iv2ppns1kiosof9nkgdnr3orp3nbor4.apps.googleusercontent.com',
   },
   mongoose: {
     uri: process.env.MONGODB_URI,

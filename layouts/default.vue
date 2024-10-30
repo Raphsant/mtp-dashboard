@@ -37,7 +37,7 @@ const links = [{
   icon: 'i-heroicons-cog-8-tooth',
   children: [{
     label: ' Add/Modify Services',
-    to: '/settings',
+    to: '/settings/services',
   }, {
     label: 'Discounts',
     to: '/settings/members'

@@ -40,7 +40,7 @@ const links = [{
     to: '/settings/services',
   }, {
     label: 'Discounts',
-    to: '/settings/members'
+    to: '/settings/discounts'
   }, {
     label: 'Send mass emails',
     to: '/settings/notifications'

@@ -2,10 +2,14 @@
 import {format} from "date-fns";
 
 const isOpen = ref(false)
+const isBannerEdited = ref(false)
 const date = ref(new Date())
 const {data: serviceData} = await useLazyFetch('/api/services/list', {server: false})
 const {data, refresh} = await useLazyFetch('/api/discounts/list', {server: false})
+const {data: bannerData, refresh: bannerRefresh} = await useLazyFetch('/api/settings/list', {server: false})
 const addedServices = ref([])
+
+const editedTextForBanner = ref('')
 
 const discountForm = ref({
   name: '',
@@ -37,6 +41,21 @@ async function createDiscount() {
 
 }
 
+async function updateBanner() {
+  try {
+    const banner = await $fetch('/api/settings/add', {
+      method: 'POST',
+      body: {
+        text: editedTextForBanner.value
+      }
+    })
+    isBannerEdited.value = false
+    await bannerRefresh();
+  } catch (e) {
+    console.error(e.message)
+  }
+}
+
 
 </script>
 
@@ -60,13 +79,33 @@ async function createDiscount() {
             These are the discounts offered in the website
           </template>
 
+
           <UDashboardCard class="w-full" :ui="{ body: { base: ' dark:divide-gray-800 gap-4 flex flex-col' } }">
+            <div>
+              <UFormGroup>
+                <template #label>
+                  <span class="text-lg font-semibold text-primary">Promo banner displayed on the website</span>
+                </template>
+                <div class="flex justify-start items-center gap-4 w-full">
+                  <UInput v-if="!isBannerEdited && bannerData" :disabled="!isBannerEdited" class="my-2 w-1/2"
+                          :placeholder="bannerData.text"/>
+                  <UInput v-if="isBannerEdited" class="my-2 w-1/2" v-model="editedTextForBanner"
+                          :placeholder="bannerData.text"/>
+                  <UIcon v-if="!isBannerEdited" @click="isBannerEdited = !isBannerEdited" class="w-6 h-6 cursor-pointer"
+                         name="i-heroicons-pencil"/>
+                  <UIcon v-if="isBannerEdited" @click.prevent="updateBanner" class="w-6 h-6 cursor-pointer" name="i-heroicons-check"/>
+                  <UIcon v-if="isBannerEdited" @click="isBannerEdited = false" class="w-6 h-6 cursor-pointer"
+                         name="i-heroicons-x-circle"/>
+                </div>
+              </UFormGroup>
+            </div>
             <UButton class="w-[7rem]" block label="New Discount" @click="isOpen = true"/>
             <div class="w-full flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-6">
               <UDashboardCard class=" w-full" v-for="discount in data">
                 <template #title>
                 <span class="text-primary text-xl font-bold">
-                {{ discount.name }} - {{ discount.percentage }} % - <span class="text-primary font-bold text-lg">{{ discount.isActive?  "Active" : "Inactive" }}</span>
+                {{ discount.name }} - {{ discount.percentage }} % - <span
+                    class="text-primary font-bold text-lg">{{ discount.isActive ? "Active" : "Inactive" }}</span>
                 </span>
                 </template>
                 <template #description>

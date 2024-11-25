@@ -61,35 +61,38 @@ watch(dashData, (newData) => {
                   <UIcon class="w-10 h-10" name="i-heroicons-book-open"/>
                 </template>
                 <template #title><span class="text-primary">Recent Appointments</span></template>
-                <template #description>You have {{ data.counts[1].count }}
-                  {{ data.counts[1].count === 1 ? "appointment" : "appointments" }} waiting for confirmation
+                <template #description><div v-if="data?.counts[0]?.count < 0">You have {{ data?.counts[1]?.count }}
+                  {{ data?.counts[1]?.count === 1 ? "appointment" : "appointments" }} waiting for confirmation</div>
+                  <div v-else>
+                    You have no appointments waiting for confirmation.
+                  </div>
                 </template>
               </UDashboardCard>
               <UDashboardCard class="h-[21rem]" :ui="{ background: 'bg-red-200/20', ring: 'ring-red-600' }">
                 <div class="flex flex-col justify-center items-center gap-4 h-[18.4rem]">
-                  <UProgress color="gray" :value="data.counts[1].count"
-                             :max="data.counts[0].count + data.counts[1].count + data.counts[2].count">
+                  <UProgress color="gray" :value="data?.counts[1]?.count"
+                             :max="data?.counts[0]?.count + data?.counts[1]?.count + data?.counts[2]?.count">
                     <template #indicator>
                       <div class="text-right">
-                        <span class=" text-xs">🕛 Pending appointments ({{ data.counts[1].count }})</span>
+                        <span class=" text-xs">🕛 Pending appointments ({{ data?.counts[1]?.count }})</span>
 
                       </div>
                     </template>
                   </UProgress>
-                  <UProgress color="green" :value="data.counts[0].count"
-                             :max="data.counts[0].count + data.counts[1].count + data.counts[2].count">
+                  <UProgress color="green" :value="data?.counts[0]?.count"
+                             :max="data?.counts[0]?.count + data?.counts[1]?.count + data?.counts[2]?.count">
                     <template #indicator>
                       <div class="text-right">
-                        <span class="text-xs">✅ Confirmed appointments ({{ data.counts[0].count }})</span>
+                        <span class="text-xs">✅ Confirmed appointments ({{ data?.counts[0]?.count }})</span>
 
                       </div>
                     </template>
                   </UProgress>
-                  <UProgress color="red" :value="data.counts[2].count"
-                             :max="data.counts[0].count + data.counts[1].count + data.counts[2].count">
+                  <UProgress color="red" :value="data?.counts[2]?.count"
+                             :max="data?.counts[0]?.count + data?.counts[1]?.count + data?.counts[2]?.count">
                     <template #indicator>
                       <div class="text-right">
-                        <span class=" text-xs">🚫 Cancelled appointments ({{ data.counts[2].count }}) </span>
+                        <span class=" text-xs">🚫 Cancelled appointments ({{ data?.counts[2]?.count }}) </span>
 
                       </div>
                     </template>

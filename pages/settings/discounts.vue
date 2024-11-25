@@ -4,7 +4,7 @@ import {format} from "date-fns";
 const isOpen = ref(false)
 const isBannerEdited = ref(false)
 const date = ref(new Date())
-const {data: serviceData} = await useLazyFetch('/api/services/list', {server: false})
+const {data: serviceData, refresh: refreshServices} = await useLazyFetch('/api/services/list', {server: false})
 const {data, refresh} = await useLazyFetch('/api/discounts/list', {server: false})
 const {data: bannerData, refresh: bannerRefresh} = await useLazyFetch('/api/settings/list', {server: false})
 const addedServices = ref([])
@@ -34,6 +34,8 @@ async function createDiscount() {
       }
     })
     await refresh();
+    await refreshServices();
+    addedServices.value = []
     isOpen.value = false
   } catch (e) {
     console.error(e.message)
@@ -51,6 +53,21 @@ async function updateBanner() {
     })
     isBannerEdited.value = false
     await bannerRefresh();
+  } catch (e) {
+    console.error(e.message)
+  }
+}
+
+async function deleteDiscount(_id) {
+  try {
+    await $fetch('/api/discounts/delete', {
+      method: "DELETE",
+      body: {
+        _id: _id
+      }
+    })
+    await refresh();
+    await refreshServices();
   } catch (e) {
     console.error(e.message)
   }
@@ -93,7 +110,8 @@ async function updateBanner() {
                           :placeholder="bannerData.text"/>
                   <UIcon v-if="!isBannerEdited" @click="isBannerEdited = !isBannerEdited" class="w-6 h-6 cursor-pointer"
                          name="i-heroicons-pencil"/>
-                  <UIcon v-if="isBannerEdited" @click.prevent="updateBanner" class="w-6 h-6 cursor-pointer" name="i-heroicons-check"/>
+                  <UIcon v-if="isBannerEdited" @click.prevent="updateBanner" class="w-6 h-6 cursor-pointer"
+                         name="i-heroicons-check"/>
                   <UIcon v-if="isBannerEdited" @click="isBannerEdited = false" class="w-6 h-6 cursor-pointer"
                          name="i-heroicons-x-circle"/>
                 </div>
@@ -101,7 +119,7 @@ async function updateBanner() {
             </div>
             <UButton class="w-[7rem]" block label="New Discount" @click="isOpen = true"/>
             <div class="w-full flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-6">
-              <UDashboardCard class=" w-full" v-for="discount in data">
+              <UDashboardCard class=" w-full h-auto flex flex-col justify-between" v-for="discount in data">
                 <template #title>
                 <span class="text-primary text-xl font-bold">
                 {{ discount.name }} - {{ discount.percentage }} % - <span
@@ -127,7 +145,7 @@ async function updateBanner() {
                   </div>
                 </template>
                 <template #footer>
-
+                  <UButton @click="deleteDiscount(discount._id)" label="Remove discount"/>
                 </template>
 
               </UDashboardCard>
@@ -171,15 +189,21 @@ async function updateBanner() {
           <div class="mb-4">Add Services to this Discount</div>
           <div class="flex flex-col gap-2">
             <div v-for="data in serviceData" :key="data._id">
-              <div
-                  @click="addedServices.includes(data._id) ? addedServices = addedServices.filter(item => item !== data._id) : addedServices.push(data._id)"
-                  class="px-1 py-2 rounded cursor-pointer hover:bg-red-700/90"
-                  :class="addedServices.includes(data._id) ? 'bg-red-700/90' : 'bg-red-900/30'"
-              >
-                {{ data.name }}
-                {{ data.rims?.min && data.rims?.max ? `(${data.rims?.min} - ${data.rims?.max})" rims` : "" }} -
-                ${{ data.price }}
-              </div>
+              <UTooltip class="w-full" :text="data.discounts[0]?.isActive ? `This service already has a discount: ${data.discounts[0].name}` : null ">
+                <div
+                    @click="addedServices.includes(data._id) || data.discounts[0]?.isActive ? addedServices = addedServices.filter(item => item !== data._id) : addedServices.push(data._id)"
+                    class="px-1 py-2 rounded w-full "
+                    :class="[
+  addedServices.includes(data._id) ? 'bg-red-700/90' : 'bg-red-900/30',
+  data.discounts[0]?.isActive ? 'cursor-not-allowed text-gray-600' : 'cursor-pointer hover:bg-red-700/90'
+]"
+
+                >
+                  {{ data.name }}
+                  {{ data.rims?.min && data.rims?.max ? `(${data.rims?.min} - ${data.rims?.max})" rims` : "" }} -
+                  ${{ data.price }}
+                </div>
+              </UTooltip>
             </div>
           </div>
           <template #footer>
